@@ -1,0 +1,10 @@
+induce.cfe<-function(floor.perc,ceiling.perc,y)
+{
+  m=mean(y)
+  s=sd(y)
+  a=qnorm(floor.perc,m,s)
+  b=qnorm(1-ceiling.perc,m,s)
+  y[y>=b]=b
+  y[y<=a]=a
+  return(y)
+}
