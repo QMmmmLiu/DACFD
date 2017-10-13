@@ -4,12 +4,14 @@
 \alias{lw.f.star}
 \title{lw.f.star}
 \usage{
-lw.f.star(data, formula)
+lw.f.star(data, formula, method_type)
 }
 \arguments{
 \item{data}{a dataframe of data with ceiling/floor effects and corresponding group variables in wide format}
 
 \item{formula}{a formula denoting the dependent and independent variable, e.g., y~group}
+
+\item{method_type}{a character string specifying the preferred method type. "a" uses the original sample size and "b" uses after-truncation sample size.}
 }
 \description{
 conduct an F star with for data with ceiling/floor effects

@@ -13,4 +13,5 @@ lw.t.test(x.1.cf,x.2.cf,"b")
 testdat=anova.sim.three(10000,.0625,1)
 testdat.cf=testdat
 testdat.cf[testdat.cf$group==2,]$y=induce.cfe(.2,0,testdat.cf[testdat.cf$group==2,]$y)
-lw.f.star(testdat,y~group)
+lw.f.star(testdat.cf,y~group,"a")
+lw.f.star(testdat.cf,y~group,"b")
