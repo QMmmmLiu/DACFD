@@ -27,7 +27,7 @@ lw.t.test<-function(x1,x2,method_type){
   df <- stderr^4/(stderrx^4/(n1 - 1) + stderry^4/(n2 - 1))/2-1
   df=ifelse(df>0,df,1)
   p=2*pt(-abs(t),df)
-  d=(m2-m1)/sqrt((n1*v1+n2*v2)/(n1+n2))
+  d=(m1-m2)/sqrt((n1*v1+n2*v2)/(n1+n2))
   ll=(m1-m2)-qt(.975,df)*stderr
   ul=(m1-m2)+qt(.975,df)*stderr
   return(list('adjusted t statistic'=t,'p value'=p,'adjusted d estimate'=d,'95% confidence interval'=c(ll,ul)))
