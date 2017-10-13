@@ -1,3 +1,9 @@
+#' rec.mean.var
+#' @description recover mean and variance of the data with ceiling/floor effects
+#' @param y a (non-empty) numeric vector of data with ceiling/floor effects
+#' @return percentage of ceiling/floor and recovered mean and variance
+#' @export rec.mean.var
+
 rec.mean.var<-function(y){
   floor.perc=sum(y==min(y))/length(y)*(sum(y==min(y))>=1)
   ceiling.perc=sum(y==max(y))/length(y)*(sum(y==max(y))>=1)

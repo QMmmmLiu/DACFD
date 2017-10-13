@@ -1,3 +1,11 @@
+#' lw.t.test
+#' @description conduct a t test adjusting for ceiling and/or floor effects
+#' @param x1 a (non-empty) numeric vector of data values for group 1 with floor/ceiling effects
+#' @param x2 a (non-empty) numeric vector of data values for group 2 with floor/ceiling effects
+#' @param method_type a character string specifying the preferred method type. "a" uses the original sample size and "b" uses after-truncation sample size.
+#' @return the test statistic, p value, effect size estimate, and confidence interval for t test adjusting for ceiling/floor effects
+#' @export lw.t.test
+
 lw.t.test<-function(x1,x2,method_type){
   mv1=rec.mean.var(x1)
   mv2=rec.mean.var(x2)
