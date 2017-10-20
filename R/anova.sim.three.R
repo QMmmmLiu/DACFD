@@ -9,7 +9,7 @@
 
 anova.sim.three<-function(group_n,f_sqr,sd.1)
 {
-  alpha=sqrt(f_sqr*3/2*sqrt((sd.1^2+1+1)/3))
+  alpha=sqrt(f_sqr*3/2*(sd.1^2+1+1)/3)
   temp_1=NULL
   temp_2=NULL
   temp_3=NULL

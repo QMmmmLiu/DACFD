@@ -3,6 +3,11 @@
 #' @param data a dataframe of data with ceiling/floor effects and corresponding group variables in wide format
 #' @param formula a formula denoting the dependent and independent variable, e.g., y~group
 #' @param method_type a character string specifying the preferred method type. "a" uses the original sample size and "b" uses after-truncation sample size.
+#' @return
+#' \describe{
+#'   \item{One}{First item}
+#'   \item{Two}{Second item}
+#' }
 #' @export lw.f.star
 
 lw.f.star<-function(data,formula,method_type){
