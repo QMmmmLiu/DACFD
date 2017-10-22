@@ -1,6 +1,6 @@
 Package: DACF
 Title: Data Analysis with Ceiling and/or Floor Data
-Version: 0.0.0.1000
+Version: 0.0.1
 Authors@R: person("Qimin", "Liu", email = "qliu6@nd.edu", role = c("aut", "cre"))
 Author: Qimin Liu, Lijuan Wang
 Maintainer: Qimin Liu <qliu6@nd.edu>
