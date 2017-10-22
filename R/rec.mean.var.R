@@ -54,5 +54,5 @@ rec.mean.var<-function(y){
     var.o=var/(1-term1-term2^2)
     mean.o=mean+sqrt(var.o)*term2
   }
-  return(list(`ceiling.percentage`=ceiling.perc,`floor.percentage`=floor.perc,` est.mean`=mean.o,`est.var`=var.o))
+  return(list(`ceiling.percentage`=ceiling.perc,`floor.percentage`=floor.perc,`est.mean`=mean.o,`est.var`=var.o))
 }

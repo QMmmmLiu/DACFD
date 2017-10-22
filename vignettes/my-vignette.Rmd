@@ -1,0 +1,64 @@
+---
+title: "Data Analyses with Ceiling/Floor data"
+author: "Qimin Liu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Summary 
+
+Ceiling and floor effects are common in data. Ceiling or floor effects occur when the tests or scales are relatively easy or difficult such that substantial proportions of individuals obtain either maximum or minimum scores and that the true extent of their abilities cannot be determined. 
+
+Ceiling and floor effects, subsequently, causes problems in data analysis. For example, ceiling or floor effects alone would induce, respectively, attenuation or inflation in mean. And both ceiling and floor effects would result in attenuation in variance. This imposes challenges in mean and variance based data analytic methods.
+
+The current version of this package implements methods to deal with challenges associated with ceiling/floor effects in the data using paramtric methods that assume normality for the true scores. 
+
+# Helper functions
+
+The package contains a helper function `threeganova.sim` that would generate a three-group anova data with a standard normal control group and positive/negative treatment groups of effect with same magnitudes. In addition, one can specify the standard deviation in positive treatment group. To see the specifics of the function, user can enter `?threeganova.sim` in the R console.
+
+Another helper function included in the package is `induce.cfe` where the user can manually induce ceiling and floor effects to healthy data. To see the specifics of the function, user can enter `?induce.cfe` in the R console.
+
+Moreover, the function `F.star.test` allows user to conduct a Brown-Forsythe F star test. This is a variant of the commonly used F test. F star test is robust agaisnt violations of homogeneity of variance (HOV) assumption for the F test.
+
+# Functions for data analyses
+
+The current version of the package includes three functions that can facilitate the user to conduct data analyses for data with ceiling/floor effects.`rec.mean.var` estimates the true mean and variance of the data with ceiling/floor effects. That is, as mentioned in the summary, the observed mean and variance of data with ceiling/floor effects are often biased. Thus, `rec.mean.var` aims to help the user to recover the mean and variance of the data were ceiling/floor effects absent. `lw.t.test` conducts a t test that adjusts for ceiling/floor effects in the data. As `lw.t.test` also uses Welch's t test, the adjusted t test is robust against HOV violation. `lw.f.star` conducts a F star test for one-way ANOVA that adjusts for ceiling/floor effects in the data. `lw.f.star` is also robust against HOV violation.
+
+# example
+
+```{r}
+library(DACF)
+# Simulate healthy data for two groups
+x.1=rnorm(300,2,4)
+x.2=rnorm(300,3,5)
+# check mean and variance for simulated healthy data
+mean(x.1);var(x.1)
+mean(x.2);var(x.2)
+# induce ceiling effects of 20% in group 1
+x.1.cf=induce.cfe(.2,0,x.1)
+# induce floor effects of 10% in group 2
+x.2.cf=induce.cfe(0,.1,x.2)
+# recover the mean and variance for ceiling/floor data
+rec.mean.var(x.1.cf)
+rec.mean.var(x.2.cf)
+# conduct a t test on healthy data
+t.test(x.1,x.2)
+t.test(x.1.cf,x.2.cf)
+# conduct an adjusted t test on ceiling/floor data
+lw.t.test(x.1.cf,x.2.cf,"a")
+lw.t.test(x.1.cf,x.2.cf,"b")
+# generate a dataframe for ANOVA demo
+testdat=threeganova.sim(10000,.0625,1)
+# induce ceiling/floor effects in the data
+testdat.cf=testdat
+testdat.cf[testdat.cf$group==2,]$y=induce.cfe(.2,0,testdat.cf[testdat.cf$group==2,]$y)
+# conduct an adjusted F star test on ceiling/floor data
+lw.f.star(testdat.cf,y~group,"a")
+lw.f.star(testdat.cf,y~group,"b")
+```
+
