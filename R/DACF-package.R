@@ -10,6 +10,4 @@
 #' \code{vignette("DACF-vignette")}
 #'
 #' @docType package
-#' @name DACF-package
-#' @aliases DACF
 NULL
