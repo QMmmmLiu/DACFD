@@ -1,13 +1,14 @@
-#' anova.sim.three
+#' threeganova.sim
 #' @description simulate three-group anova data
 #' @param group_n a (non-empty) numeric value of desired sample size per group
 #' @param f_sqr a (non-empty) numeric value of desired cohen's f squared value
 #' @param sd.1 a (non-empty) numeric value of desired standard deviation ratio
-#' @return a dataframe
-#' @export anova.sim.three
+#' @return a dataframe containing scores "y", grouping factor "group", and residual errors.
+#' @export threeganova.sim
 
 
-anova.sim.three<-function(group_n,f_sqr,sd.1)
+
+threeganova.sim<-function(group_n,f_sqr,sd.1)
 {
   alpha=sqrt(f_sqr*3/2*(sd.1^2+1+1)/3)
   temp_1=NULL

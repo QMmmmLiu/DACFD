@@ -7,6 +7,7 @@
 #' @export induce.cfe
 
 
+
 induce.cfe<-function(floor.perc,ceiling.perc,y)
 {
   m=mean(y)

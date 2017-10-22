@@ -14,11 +14,15 @@ lw.f.star(data, formula, method_type)
 \item{method_type}{a character string specifying the preferred method type. "a" uses the original sample size and "b" uses after-truncation sample size.}
 }
 \value{
-\describe{
-  \item{One}{First item}
-  \item{Two}{Second item}
-}
+\item{statistic}{the value of the Brown-Forsythe F star statistics}
+        \item{p.value}{the p-value for the test}
+        \item{est.f.squared}{effect size estimate in Cohen's f squared}
 }
 \description{
 conduct an F star with for data with ceiling/floor effects
+}
+\examples{
+\dontrun{
+lw.f.star(dat,y~x,"a") #using truncated n
+lw.f.star(dat,y~x,"b") #using original n}
 }

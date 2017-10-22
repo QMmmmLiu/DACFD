@@ -14,8 +14,16 @@ lw.t.test(x1, x2, method_type)
 \item{method_type}{a character string specifying the preferred method type. "a" uses the original sample size and "b" uses after-truncation sample size.}
 }
 \value{
-the test statistic, p value, effect size estimate, and confidence interval for t test adjusting for ceiling/floor effects
+\item{statistic}{the value of the adjusted t test statistics}
+\item{p.value}{the p-value for the test}
+\item{est.d}{effect size estimate as in Cohen's d}
+\item{conf.int}{95\% confidence interval}
 }
 \description{
 conduct a t test adjusting for ceiling and/or floor effects
+}
+\examples{
+\dontrun{
+lw.t.test(x1.c,x2.c,"a") #using truncated n
+lw.t.test(x1.c,x2.c,"b") #using original n}
 }

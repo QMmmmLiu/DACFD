@@ -19,9 +19,10 @@
 #' rec.mean.var(x.c)
 #' # induce 20% and 10% of floor and ceiling effects, respectively
 #' # and estimate the true mean and variance from the data with floor and ceiling effects
-#' x.cf=induce.cfe(.2,.1,x.2)
+#' x.cf=induce.cfe(.2,.1,x)
 #' rec.mean.var(x.cf)
 #' @export rec.mean.var
+
 
 rec.mean.var<-function(y){
   floor.perc=sum(y==min(y))/length(y)*(sum(y==min(y))>=1)
