@@ -1,7 +1,7 @@
 Package: DACF
 Title: Data Analysis with Ceiling and/or Floor Data
 Version: 0.0.1
-Authors@R: person("Qimin", "Liu", email = "qliu6@nd.edu", role = c("aut", "cre"))
+Authors@R: person("Qimin", "Liu", email = "qliu6@nd.edu", role = c("aut", "cre"))+person("Lijuan","Wang",email="lwang4@nd.edu",role="aut"))
 Author: Qimin Liu, Lijuan Wang
 Maintainer: Qimin Liu <qliu6@nd.edu>
 Description: An implementation of data analytic methods in R for analyses for data with ceiling/floor effects. The package currently includes functions for mean/variance estimation and mean comparison tests.  
