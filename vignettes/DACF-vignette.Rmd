@@ -27,7 +27,7 @@ Moreover, the function `F.star.test` allows user to conduct a Brown-Forsythe F s
 
 # Functions for data analyses
 
-The current version of the package includes three functions that can facilitate the user to conduct data analyses for data with ceiling/floor effects.`rec.mean.var` estimates the true mean and variance of the data with ceiling/floor effects. That is, as mentioned in the summary, the observed mean and variance of data with ceiling/floor effects are often biased. Thus, `rec.mean.var` aims to help the user to recover the mean and variance of the data were ceiling/floor effects absent. `lw.t.test` conducts a t test that adjusts for ceiling/floor effects in the data. As `lw.t.test` also uses Welch's t test, the adjusted t test is robust against HOV violation. `lw.f.star` conducts a F star test for one-way ANOVA that adjusts for ceiling/floor effects in the data. `lw.f.star` is also robust against HOV violation.
+The current version of the package includes three functions that can facilitate the user to conduct data analyses for data with ceiling/floor effects.`rec.mean.var` estimates the true mean and variance of the data with ceiling/floor effects. That is, as mentioned in the summary, the observed mean and variance of data with ceiling/floor effects are often biased. Thus, `rec.mean.var` aims to help the user to recover the mean and variance of the data were ceiling/floor effects absent. `lw.t.test` conducts a t test that adjusts for ceiling/floor effects in the data. As `lw.t.test` also uses Welch's t test, the adjusted t test is robust against HOV violation. `lw.f.star` conducts a F star test for one-way ANOVA that adjusts for ceiling/floor effects in the data. `lw.f.star` is also robust against HOV violation. For both `lw.f.star` and `lw.t.test`: method `a` is a liberal appraoch that yields accurate effect size estimates but has mildly inflated type I error rates, `b` is a conservative approach with well-controlled type I error rates that have good, but less accurate than `a`, effect estimates. 
 
 # Example 1: an Aging Example
 
@@ -52,7 +52,7 @@ aggregate(ca.true[,1],mean,by=list(ca.true[,2]))
 aggregate(ca.true[,1],var,by=list(ca.true[,2]))
 ```
 
-Now consider the fact that a substantial proportion of the younger-aged group may score maximum at the cognitive ability test and a substantial proportion of the older-aged group may score minimum. Let both the ceiling and the floor proportion be 15%, we have the dataset `ca.cf`.
+Now consider the fact that a substantial proportion of the younger-aged group may score maximum at the cognitive ability test and a substantial proportion of the older-aged group may score minimum. Let both the ceiling and the floor proportions be 15%, we have the dataset `ca.cf`.
 
 ```{r}
 # group sample mean
@@ -61,7 +61,7 @@ aggregate(ca.cf[,1],mean,by=list(ca.cf[,2]))
 aggregate(ca.cf[,1],var,by=list(ca.cf[,2]))
 ```
 
-We can see that both the mean and the variance estimates from the younger-aged and the older-aged groups are biased. The function `rec.mean.var` can help recover the mean and variance. In the example of the younger-aged group, we first select all the scores of the younger-aged group and name it as a new variable called `young` and then use our function `rec.mean.var` to recover the mean and variance. We can do the same for the older-aged group.
+We can see that both the mean and the variance estimates from the younger-aged and the older-aged groups are biased. The function `rec.mean.var` can help recover the mean and variance. In the example of the younger-aged group, we first select all the scores of the younger-aged group and name it as a new variable `young` and then use our function `rec.mean.var` to recover the mean and variance. We can do the same for the older-aged group.
 
 ```{r}
 # younger-aged group
@@ -77,7 +77,7 @@ rec.mean.var(old) # true mean and variance are 10 and 100
 # the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above
 ```
 
-Now we wish to conduct an ANOVA in the data with floor and ceiling effects. We can use the function `lw.f.star`. We can also conduct a t-test between the older-aged and the younger-aged group by using the function `lw.t.test`. However, we need to choose between the two proposed methods: method `a` yields more accurate effect size estimate but can be slightly too liberal in hypothesis testing, `b` has well-controlled type I error rates but can be slightly conservative. 
+Now we wish to conduct an ANOVA in the data with floor and ceiling effects. We can use the function `lw.f.star`. We can also conduct a t-test between the older-aged and the younger-aged group by using the function `lw.t.test`. Both methods `a` and `b` are used for the illustration purposes.
 
 ```{r}
 # ANOVA
