@@ -1,6 +1,6 @@
 Package: DACF
 Title: Data Analysis with Ceiling and/or Floor Data
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(person("Qimin", "Liu", email = "qliu6@nd.edu", role = c("aut","cre")),person("Lijuan","Wang",email="lwang4@nd.edu",role="aut"))
 Description: An implementation of data analytic methods in R for analyses for data with ceiling/floor effects. The package currently includes functions for mean/variance estimation and mean comparison tests.  
 License: GPL-2
