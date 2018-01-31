@@ -7,9 +7,10 @@
 #'         \item{p.value}{the p-value for the test}
 #'         \item{est.f.squared}{effect size estimate in Cohen's f squared}
 #' @examples
-#' \dontrun{
-#' lw.f.star(dat,y~x,"a") #using truncated n
-#' lw.f.star(dat,y~x,"b") #using original n}
+#' dat=threeganova.sim(1000,.16,1)
+#' dat[dat$group==1,3]=induce.cfe(0,.15,dat[dat$group==1,3])
+#' lw.f.star(dat,y~group,"a") #using truncated n
+#' lw.f.star(dat,y~group,"b") #using original n
 #' @export lw.f.star
 
 lw.f.star<-function(data,formula,method_type){

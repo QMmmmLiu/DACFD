@@ -4,6 +4,11 @@
 #' @param f_sqr a (non-empty) numeric value of desired Cohen's f squared value
 #' @param sd.1 a (non-empty) numeric value of desired standard deviation ratio
 #' @return a dataframe containing scores "y", grouping factor "group", and residual errors.
+#' @examples
+#' sample.3g=threeganova.sim(1000,.16,5) #data of n=1000, sd1=sd3=1 and sd2=5, and f^2=.16
+#' colnames(sample.3g) #examine the column names
+#' dim(sample.3g) #examine the data structure
+#' aggregate(sample.3g$y,sd,by=list(sample.3g$group)) #check group standard deviations
 #' @export threeganova.sim
 
 

@@ -23,7 +23,8 @@ lw.t.test(x1, x2, method_type)
 conduct a t test adjusting for ceiling and/or floor effects
 }
 \examples{
-\dontrun{
+x1.c=induce.cfe(0,.3,rnorm(1000,20,5)) #group 1 scores with 30\% ceiling data
+x2.c=induce.cfe(.15,0,rnorm(1000,30,5)) #group 2 scores with 15\% floor data
 lw.t.test(x1.c,x2.c,"a") #using truncated n
-lw.t.test(x1.c,x2.c,"b") #using original n}
+lw.t.test(x1.c,x2.c,"b") #using original n
 }

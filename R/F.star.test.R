@@ -7,10 +7,9 @@
 #'         \item{p.value}{the p-value for the test}
 #'         \item{est.f.squared}{effect size estimate as in Cohen's f squared}
 #' @examples
-#' \dontrun{
 #' # a f star test for three-group mean comparison
 #' f.star.test(c(-.2,0,.2),c(1,1,1),c(100,100,100))
-#' f.star.test(c(0,0,1),c(2,1,3),c(100,100,100))}
+#' f.star.test(c(0,0,1),c(2,1,3),c(100,100,100))
 #' @export f.star.test
 
 
