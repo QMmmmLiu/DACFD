@@ -13,7 +13,7 @@ vignette: >
 
 Ceiling and floor effects are common in data. Ceiling or floor effects occur when the tests or scales are relatively easy or difficult such that substantial proportions of individuals obtain either maximum or minimum scores and that the true extent of their abilities cannot be determined. 
 
-Ceiling and floor effects, subsequently, causes problems in data analysis. For example, ceiling or floor effects alone would induce, respectively, attenuation or inflation in mean. And both ceiling and floor effects would result in attenuation in variance. This imposes challenges in mean and variance based data analytic methods.
+Ceiling and floor effects, subsequently, causes problems in data analysis. For example, ceiling or floor effects alone would induce, respectively, attenuation or inflation in mean estimates. And both ceiling and floor effects would result in attenuation in variance estimates. This imposes challenges in mean and variance based data analytic methods.
 
 This package implements methods to deal with challenges associated with ceiling/floor effects in the data using paramtric methods that assume normality for the true scores. The current version is capable of mean and variance recovery given data with ceiling/floor effects and of mean comparison tests such as t-test and ANOVA for data with ceiling/floor effects.
 
@@ -23,7 +23,7 @@ The package contains a helper function `threeganova.sim` that would generate a t
 
 Another helper function included in the package is `induce.cfe` where the user can manually induce ceiling and floor effects to healthy data. To see the specifics of the function, user can enter `?induce.cfe` in the R console.
 
-Moreover, the function `F.star.test` allows user to conduct a Brown-Forsythe F star test. This is a variant of the commonly used F test. F star test is robust agaisnt violations of homogeneity of variance (HOV) assumption for the F test.
+Moreover, the function `F.star.test` allows user to conduct a Brown-Forsythe F star test. This is a variant of the commonly used F test. F star test is robust against violations of homogeneity of variance (HOV) assumption for the F test.
 
 # Functions for data analyses
 
@@ -31,9 +31,10 @@ The current version of the package includes three functions that can facilitate 
 
 # Example 1: an Aging Example
 
-Imagine a scenario where we wish to test the difference in cognitive ability in people of different age group. In this toy example, we have 1000 participants for three age groups, the younger-aged group has true mean and variance of respectively 30 and 25, the middle-aged group 20 and 25 and the older 10 and 100. The higher the score, the higher the cognitive ability. We can check the mean and variance of the true mean and variance on the data composed of true scores, `ca.true`. 
+Imagine a scenario where we wish to test the difference in cognitive ability for people of different age groups. In this toy example, we have 1000 participants for three age groups, the younger-aged group has true mean and variance of respectively 30 and 25, the middle-aged group 20 and 25 and the older-aged group 10 and 100. The higher the score, the higher the cognitive ability. We can check the mean and variance of the true mean and variance on the data composed of true scores, `ca.true`. 
 
 ```{r echo=FALSE}
+library(DACF)
 r.1=rnorm(1000,20,5)
 r.2=rnorm(1000,30,5)
 r.3=rnorm(1000,10,10)
@@ -45,18 +46,18 @@ colnames(ca.cf)=c('score','group')
 ```
 
 ```{r}
-# mean
+# group sample mean
 aggregate(ca.true[,1],mean,by=list(ca.true[,2]))
-# variance
+# group sample variance
 aggregate(ca.true[,1],var,by=list(ca.true[,2]))
 ```
 
 Now consider the fact that a substantial proportion of the younger-aged group may score maximum at the cognitive ability test and a substantial proportion of the older-aged group may score minimum. Let both the ceiling and the floor proportion be 15%, we have the dataset `ca.cf`.
 
 ```{r}
-# mean
+# group sample mean
 aggregate(ca.cf[,1],mean,by=list(ca.cf[,2]))
-# variance
+# grouple sample variance
 aggregate(ca.cf[,1],var,by=list(ca.cf[,2]))
 ```
 
@@ -66,12 +67,17 @@ We can see that both the mean and the variance estimates from the younger-aged a
 # younger-aged group
 young=ca.cf[ca.cf[,2]==1,1]
 rec.mean.var(young) # true mean and variance are 30 and 25
+
+# the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above
+
 # older-aged group
 old=ca.cf[ca.cf[,2]==3,1]
 rec.mean.var(old) # true mean and variance are 10 and 100
+
+# the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above
 ```
 
-Now say we wish to conduct an ANOVA in the data with floor and ceiling effects. We can use the function `lw.f.star`. We can also conduct t-test, say between the older-aged and the younger-aged group by using the function `lw.t.test`. However, we need to choose between the two proposed methods: method `a` make more accurate effect size estimate, `b` is more conservative in terms of hypothesis testing. 
+Now we wish to conduct an ANOVA in the data with floor and ceiling effects. We can use the function `lw.f.star`. We can also conduct a t-test between the older-aged and the younger-aged group by using the function `lw.t.test`. However, we need to choose between the two proposed methods: method `a` yields more accurate effect size estimate but can be slightly too liberal in hypothesis testing, `b` has well-controlled type I error rates but can be slightly conservative. 
 
 ```{r}
 # ANOVA
@@ -81,10 +87,13 @@ lw.f.star(data.frame(ca.cf),score~group,"b")
 lw.t.test(young,old,"a")
 lw.t.test(young,old,"b")
 ```
+Both the ANOVA and the t-tests returned significant results. 
+
 # Example 2: Simulation and Testing
 
+The following example provides an overview of the helper functions in the package that can aid in simulations and further demonstrates data analytic functions in the package.
+
 ```{r}
-library(DACF)
 # Simulate healthy data for two groups
 x.1=rnorm(300,2,4)
 x.2=rnorm(300,3,5)

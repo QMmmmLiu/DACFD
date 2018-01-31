@@ -9,24 +9,29 @@ ca.cf=matrix(c(r.1,r.2.cf,r.3.cf,rep(c(2,1,3),each=1000)),ncol=2)
 colnames(ca.cf)=c('score','group')
 
 ## ------------------------------------------------------------------------
-# mean
+# group sample mean
 aggregate(ca.true[,1],mean,by=list(ca.true[,2]))
-# variance
+# group sample variance
 aggregate(ca.true[,1],var,by=list(ca.true[,2]))
 
 ## ------------------------------------------------------------------------
-# mean
+# group sample mean
 aggregate(ca.cf[,1],mean,by=list(ca.cf[,2]))
-# variance
+# grouple sample variance
 aggregate(ca.cf[,1],var,by=list(ca.cf[,2]))
 
 ## ------------------------------------------------------------------------
 # younger-aged group
 young=ca.cf[ca.cf[,2]==1,1]
 rec.mean.var(young) # true mean and variance are 30 and 25
+
+# the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above
+
 # older-aged group
 old=ca.cf[ca.cf[,2]==3,1]
 rec.mean.var(old) # true mean and variance are 10 and 100
+
+# the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above
 
 ## ------------------------------------------------------------------------
 # ANOVA
