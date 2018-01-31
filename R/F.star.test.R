@@ -2,8 +2,8 @@
 #' @description conduct a Brown-Forsythe F star test
 #' @param means a (non-empty) numeric vector of the group means
 #' @param variances a (non-empty) numeric vector of the group variances
-#' @param ns a (non-empty) numeric vector of sample size per group
-#' @return \item{statistic}{the value of the adjusted Brown-Forsythe F star statistics}
+#' @param ns a (non-empty) numeric vector of sample sizes per group
+#' @return \item{statistic}{the value of the adjusted Brown-Forsythe F star statistic}
 #'         \item{p.value}{the p-value for the test}
 #'         \item{est.f.squared}{effect size estimate as in Cohen's f squared}
 #' @examples

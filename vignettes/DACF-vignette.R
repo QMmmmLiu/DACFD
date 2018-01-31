@@ -1,4 +1,5 @@
 ## ----echo=FALSE----------------------------------------------------------
+library(DACF)
 r.1=rnorm(1000,20,5)
 r.2=rnorm(1000,30,5)
 r.3=rnorm(1000,10,10)
@@ -42,7 +43,6 @@ lw.t.test(young,old,"a")
 lw.t.test(young,old,"b")
 
 ## ------------------------------------------------------------------------
-library(DACF)
 # Simulate healthy data for two groups
 x.1=rnorm(300,2,4)
 x.2=rnorm(300,3,5)

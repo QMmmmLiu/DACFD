@@ -1,7 +1,7 @@
 #' threeganova.sim
 #' @description simulate three-group anova data
 #' @param group_n a (non-empty) numeric value of desired sample size per group
-#' @param f_sqr a (non-empty) numeric value of desired cohen's f squared value
+#' @param f_sqr a (non-empty) numeric value of desired Cohen's f squared value
 #' @param sd.1 a (non-empty) numeric value of desired standard deviation ratio
 #' @return a dataframe containing scores "y", grouping factor "group", and residual errors.
 #' @export threeganova.sim

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Qimin Liu" />
 
-<meta name="date" content="2018-01-26" />
+<meta name="date" content="2018-01-31" />
 
 <title>Data Analyses with Ceiling/Floor data</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Data Analyses with Ceiling/Floor data</h1>
 <h4 class="author"><em>Qimin Liu</em></h4>
-<h4 class="date"><em>2018-01-26</em></h4>
+<h4 class="date"><em>2018-01-31</em></h4>
 
 
 
@@ -96,43 +96,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group sample mean</span>
 <span class="kw">aggregate</span>(ca.true[,<span class="dv">1</span>],mean,<span class="dt">by=</span><span class="kw">list</span>(ca.true[,<span class="dv">2</span>]))</code></pre></div>
 <pre><code>##   Group.1         x
-## 1       1 30.035288
-## 2       2 20.031076
-## 3       3  9.832404</code></pre>
+## 1       1 30.049601
+## 2       2 19.894170
+## 3       3  9.852276</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group sample variance</span>
 <span class="kw">aggregate</span>(ca.true[,<span class="dv">1</span>],var,<span class="dt">by=</span><span class="kw">list</span>(ca.true[,<span class="dv">2</span>]))</code></pre></div>
-<pre><code>##   Group.1        x
-## 1       1 26.17046
-## 2       2 25.88696
-## 3       3 94.35390</code></pre>
+<pre><code>##   Group.1         x
+## 1       1  23.16216
+## 2       2  23.91805
+## 3       3 100.80909</code></pre>
 <p>Now consider the fact that a substantial proportion of the younger-aged group may score maximum at the cognitive ability test and a substantial proportion of the older-aged group may score minimum. Let both the ceiling and the floor proportion be 15%, we have the dataset <code>ca.cf</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group sample mean</span>
 <span class="kw">aggregate</span>(ca.cf[,<span class="dv">1</span>],mean,<span class="dt">by=</span><span class="kw">list</span>(ca.cf[,<span class="dv">2</span>]))</code></pre></div>
 <pre><code>##   Group.1        x
-## 1       1 29.09481
-## 2       2 20.03108
-## 3       3 11.69166</code></pre>
+## 1       1 29.14224
+## 2       2 19.89417
+## 3       3 11.75984</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grouple sample variance</span>
 <span class="kw">aggregate</span>(ca.cf[,<span class="dv">1</span>],var,<span class="dt">by=</span><span class="kw">list</span>(ca.cf[,<span class="dv">2</span>]))</code></pre></div>
 <pre><code>##   Group.1        x
-## 1       1 15.45187
-## 2       2 25.88696
-## 3       3 52.59490</code></pre>
+## 1       1 12.72944
+## 2       2 23.91805
+## 3       3 58.25997</code></pre>
 <p>We can see that both the mean and the variance estimates from the younger-aged and the older-aged groups are biased. The function <code>rec.mean.var</code> can help recover the mean and variance. In the example of the younger-aged group, we first select all the scores of the younger-aged group and name it as a new variable called <code>young</code> and then use our function <code>rec.mean.var</code> to recover the mean and variance. We can do the same for the older-aged group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># younger-aged group</span>
 young=ca.cf[ca.cf[,<span class="dv">2</span>]<span class="op">==</span><span class="dv">1</span>,<span class="dv">1</span>]
 <span class="kw">rec.mean.var</span>(young) <span class="co"># true mean and variance are 30 and 25</span></code></pre></div>
 <pre><code>## $ceiling.percentage
-## [1] 0.307
+## [1] 0.292
 ## 
 ## $floor.percentage
 ## [1] 0.001
 ## 
 ## $est.mean
-## [1] 30.20324
+## [1] 30.0196
 ## 
 ## $est.var
-## [1] 28.72324</code></pre>
+## [1] 22.3742</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above</span>
 
 <span class="co"># older-aged group</span>
@@ -142,73 +142,74 @@ old=ca.cf[ca.cf[,<span class="dv">2</span>]<span class="op">==</span><span class
 ## [1] 0.001
 ## 
 ## $floor.percentage
-## [1] 0.308
+## [1] 0.316
 ## 
 ## $est.mean
-## [1] 9.894999
+## [1] 9.741623
 ## 
 ## $est.var
-## [1] 92.73223</code></pre>
+## [1] 105.203</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the estimated floor and ceiling percentages and the recovered mean and variance estimates are displayed above</span></code></pre></div>
 <p>Now we wish to conduct an ANOVA in the data with floor and ceiling effects. We can use the function <code>lw.f.star</code>. We can also conduct a t-test between the older-aged and the younger-aged group by using the function <code>lw.t.test</code>. However, we need to choose between the two proposed methods: method <code>a</code> yields more accurate effect size estimate but can be slightly too liberal in hypothesis testing, <code>b</code> has well-controlled type I error rates but can be slightly conservative.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANOVA</span>
 <span class="kw">lw.f.star</span>(<span class="kw">data.frame</span>(ca.cf),score<span class="op">~</span>group,<span class="st">&quot;a&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] 2097.544
+## [1] 2034.664
 ## 
 ## $p.value
 ## [1] 0
 ## 
 ## $est.f.squared
-## [1] 1.398362</code></pre>
+## [1] 1.356443</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lw.f.star</span>(<span class="kw">data.frame</span>(ca.cf),score<span class="op">~</span>group,<span class="st">&quot;b&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] 1407.604
+## [1] 1363.056
 ## 
 ## $p.value
 ## [1] 0
 ## 
 ## $est.f.squared
-## [1] 1.182364</code></pre>
+## [1] 1.141588</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-test</span>
 <span class="kw">lw.t.test</span>(young,old,<span class="st">&quot;a&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] 55.42833
+## [1] 54.81541
 ## 
 ## $p.value
-## [1] 5.568882e-278
+## [1] 3.147294e-264
 ## 
 ## $est.d
-## [1] 2.489354
+## [1] 2.408297
 ## 
 ## $conf.int
-## [1] 19.58907 21.02743</code></pre>
+## [1] 19.55175 21.00421</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lw.t.test</span>(young,old,<span class="st">&quot;b&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] 58.27253
+## [1] 56.7725
 ## 
 ## $p.value
-## [1] 1.494959e-286
+## [1] 1.54318e-264
 ## 
 ## $est.d
-## [1] 2.606027
+## [1] 2.538944
 ## 
 ## $conf.int
-## [1] 19.62413 20.99236</code></pre>
+## [1] 19.57671 20.97925</code></pre>
+<p>Both the ANOVA and the t-tests returned significant results.</p>
 </div>
 <div id="example-2-simulation-and-testing" class="section level1">
 <h1>Example 2: Simulation and Testing</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DACF)
-<span class="co"># Simulate healthy data for two groups</span>
+<p>The following example provides an overview of the helper functions in the package that can aid in simulations and further demonstrates data analytic functions in the package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simulate healthy data for two groups</span>
 x.<span class="dv">1</span>=<span class="kw">rnorm</span>(<span class="dv">300</span>,<span class="dv">2</span>,<span class="dv">4</span>)
 x.<span class="dv">2</span>=<span class="kw">rnorm</span>(<span class="dv">300</span>,<span class="dv">3</span>,<span class="dv">5</span>)
 <span class="co"># check mean and variance for simulated healthy data</span>
 <span class="kw">mean</span>(x.<span class="dv">1</span>);<span class="kw">var</span>(x.<span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] 2.139996</code></pre>
-<pre><code>## [1] 17.11127</code></pre>
+<pre><code>## [1] 2.066186</code></pre>
+<pre><code>## [1] 15.99786</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x.<span class="dv">2</span>);<span class="kw">var</span>(x.<span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] 2.739432</code></pre>
-<pre><code>## [1] 23.25941</code></pre>
+<pre><code>## [1] 2.870058</code></pre>
+<pre><code>## [1] 23.16457</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># induce ceiling effects of 20% in group 1</span>
 x.<span class="fl">1.</span>cf=<span class="kw">induce.cfe</span>(.<span class="dv">2</span>,<span class="dv">0</span>,x.<span class="dv">1</span>)
 <span class="co"># induce floor effects of 10% in group 2</span>
@@ -219,75 +220,75 @@ x.<span class="fl">2.</span>cf=<span class="kw">induce.cfe</span>(<span class="d
 ## [1] 0.003333333
 ## 
 ## $floor.percentage
-## [1] 0.1866667
+## [1] 0.1766667
 ## 
 ## $est.mean
-## [1] 2.201275
+## [1] 2.063311
 ## 
 ## $est.var
-## [1] 16.20602</code></pre>
+## [1] 16.13177</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rec.mean.var</span>(x.<span class="fl">2.</span>cf)</code></pre></div>
 <pre><code>## $ceiling.percentage
-## [1] 0.1
+## [1] 0.08333333
 ## 
 ## $floor.percentage
 ## [1] 0.003333333
 ## 
 ## $est.mean
-## [1] 2.777726
+## [1] 2.805363
 ## 
 ## $est.var
-## [1] 24.0551</code></pre>
+## [1] 22.15134</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># conduct a t test on healthy data</span>
 <span class="kw">t.test</span>(x.<span class="dv">1</span>,x.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  x.1 and x.2
-## t = -1.6341, df = 584.45, p-value = 0.1028
+## t = -2.2249, df = 578.62, p-value = 0.02647
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -1.3199148  0.1210414
+##  -1.51350140 -0.09424254
 ## sample estimates:
 ## mean of x mean of y 
-##  2.139996  2.739432</code></pre>
+##  2.066186  2.870058</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(x.<span class="fl">1.</span>cf,x.<span class="fl">2.</span>cf)</code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  x.1.cf and x.2.cf
-## t = 0.27433, df = 558.43, p-value = 0.7839
+## t = -0.31891, df = 562.32, p-value = 0.7499
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.5468149  0.7243483
+##  -0.7196290  0.5185904
 ## sample estimates:
 ## mean of x mean of y 
-##  2.622451  2.533684</code></pre>
+##  2.508461  2.608981</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># conduct an adjusted t test on ceiling/floor data</span>
 <span class="kw">lw.t.test</span>(x.<span class="fl">1.</span>cf,x.<span class="fl">2.</span>cf,<span class="st">&quot;a&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] -1.460498
+## [1] -1.941196
 ## 
 ## $p.value
-## [1] 0.145397
+## [1] 0.05332368
 ## 
 ## $est.d
-## [1] -0.1278257
+## [1] -0.1688703
 ## 
 ## $conf.int
-## [1] -1.3537675  0.2008643</code></pre>
+## [1] -1.49480938  0.01070633</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lw.t.test</span>(x.<span class="fl">1.</span>cf,x.<span class="fl">2.</span>cf,<span class="st">&quot;b&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] -1.57355
+## [1] -2.077261
 ## 
 ## $p.value
-## [1] 0.116693
+## [1] 0.03865507
 ## 
 ## $est.d
-## [1] -0.1284798
+## [1] -0.1696077
 ## 
 ## $conf.int
-## [1] -1.2975015  0.1445983</code></pre>
+## [1] -1.44512770 -0.03897535</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate a dataframe for ANOVA demo</span>
 testdat=<span class="kw">threeganova.sim</span>(<span class="dv">10000</span>,.<span class="dv">0625</span>,<span class="dv">1</span>)
 <span class="co"># induce ceiling/floor effects in the data</span>
@@ -296,22 +297,22 @@ testdat.cf[testdat.cf<span class="op">$</span>group<span class="op">==</span><sp
 <span class="co"># conduct an adjusted F star test on ceiling/floor data</span>
 <span class="kw">lw.f.star</span>(testdat.cf,y<span class="op">~</span>group,<span class="st">&quot;a&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] 1012.384
+## [1] 987.8435
 ## 
 ## $p.value
 ## [1] 0
 ## 
 ## $est.f.squared
-## [1] 0.06749226</code></pre>
+## [1] 0.06585624</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lw.f.star</span>(testdat.cf,y<span class="op">~</span>group,<span class="st">&quot;b&quot;</span>)</code></pre></div>
 <pre><code>## $statistic
-## [1] 909.7388
+## [1] 885.4704
 ## 
 ## $p.value
 ## [1] 0
 ## 
 ## $est.f.squared
-## [1] 0.06499527</code></pre>
+## [1] 0.06327048</code></pre>
 </div>
 
 

@@ -9,7 +9,7 @@ threeganova.sim(group_n, f_sqr, sd.1)
 \arguments{
 \item{group_n}{a (non-empty) numeric value of desired sample size per group}
 
-\item{f_sqr}{a (non-empty) numeric value of desired cohen's f squared value}
+\item{f_sqr}{a (non-empty) numeric value of desired Cohen's f squared value}
 
 \item{sd.1}{a (non-empty) numeric value of desired standard deviation ratio}
 }

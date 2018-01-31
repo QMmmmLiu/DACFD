@@ -11,10 +11,10 @@ f.star.test(means, variances, ns)
 
 \item{variances}{a (non-empty) numeric vector of the group variances}
 
-\item{ns}{a (non-empty) numeric vector of sample size per group}
+\item{ns}{a (non-empty) numeric vector of sample sizes per group}
 }
 \value{
-\item{statistic}{the value of the adjusted Brown-Forsythe F star statistics}
+\item{statistic}{the value of the adjusted Brown-Forsythe F star statistic}
         \item{p.value}{the p-value for the test}
         \item{est.f.squared}{effect size estimate as in Cohen's f squared}
 }
