@@ -1,3 +1,7 @@
+## Resubmission
+
+This is a resubmission. In this resubmission, the improper spacing in the "DESCRIPTION" file 'Aitkin(1964)<doi:10.1007/BF02289723>' was fixed to 'Aitkin (1964) <doi:10.1007/BF02289723>'
+
 ## Test environments
 * local OS X install, R 3.3.2
 * ubuntu 12.04 (on travis-ci), R 3.3.2
